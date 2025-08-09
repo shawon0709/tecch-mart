@@ -1,0 +1,285 @@
+{
+  "users": [
+    {
+      "id": "1",
+      "email": "admin@techmart.com",
+      "password": "admin123",
+      "name": "Admin User",
+      "role": "ADMIN",
+      "createdAt": "2023-01-01T00:00:00Z",
+      "updatedAt": "2023-01-01T00:00:00Z"
+    }
+  ],
+  "customers": [
+    {
+      "id": "101",
+      "name": "John Doe",
+      "phone": "555-0101",
+      "email": "john@example.com",
+      "address": "123 Main St, Anytown",
+      "createdAt": "2023-05-01T09:30:00Z",
+      "userId": "1"
+    },
+    {
+      "id": "102",
+      "name": "Jane Smith",
+      "phone": "555-0102",
+      "email": "jane@example.com",
+      "address": "456 Oak Ave, Somewhere",
+      "createdAt": "2023-05-02T10:15:00Z",
+      "userId": "1"
+    },
+    {
+      "id": "103",
+      "name": "Mike Johnson",
+      "phone": "555-0103",
+      "email": "mike@example.com",
+      "address": "789 Pine Rd, Nowhere",
+      "createdAt": "2023-05-03T11:45:00Z",
+      "userId": "1"
+    },
+    {
+      "id": "104",
+      "name": "Sarah Williams",
+      "phone": "555-0104",
+      "email": "sarah@example.com",
+      "address": "321 Elm Blvd, Anywhere",
+      "createdAt": "2023-05-10T14:20:00Z",
+      "userId": "1"
+    }
+  ],
+  "technicians": [
+    {
+      "id": "201",
+      "name": "John Technician",
+      "email": "tech1@repairshop.com",
+      "createdAt": "2023-01-02T00:00:00Z",
+      "userId": "2"
+    },
+    {
+      "id": "202",
+      "name": "Alex Repairman",
+      "email": "tech2@repairshop.com",
+      "createdAt": "2023-01-15T00:00:00Z",
+      "userId": null
+    }
+  ],
+  "suppliers": [
+    {
+      "id": "301",
+      "name": "TechParts Inc.",
+      "email": "sales@techparts.com",
+      "phone": "555-0201",
+      "address": "100 Component Way, Tech City",
+      "createdAt": "2023-02-01T00:00:00Z"
+    },
+    {
+      "id": "302",
+      "name": "Gadget Supply Co.",
+      "email": "info@gadgetsupply.com",
+      "phone": "555-0202",
+      "address": "200 Electronics Blvd, Gadget Town",
+      "createdAt": "2023-02-15T00:00:00Z"
+    }
+  ],
+  "inventoryItems": [
+    {
+      "id": "401",
+      "name": "Laptop Battery",
+      "brand": "PowerCell",
+      "category": "Laptop Parts",
+      "description": "Replacement battery for most 15\" laptops",
+      "quantity": 8,
+      "reorderLevel": 5,
+      "supplierId": "301",
+      "createdAt": "2023-03-01T00:00:00Z",
+      "updatedAt": "2023-06-01T00:00:00Z"
+    },
+    {
+      "id": "402",
+      "name": "iPhone Screen",
+      "brand": "DisplayPro",
+      "category": "Phone Parts",
+      "description": "Replacement screen for iPhone 13",
+      "quantity": 3,
+      "reorderLevel": 5,
+      "supplierId": "302",
+      "createdAt": "2023-03-05T00:00:00Z",
+      "updatedAt": "2023-06-10T00:00:00Z"
+    },
+    {
+      "id": "403",
+      "name": "Keyboard",
+      "brand": "KeyTech",
+      "category": "Accessories",
+      "description": "USB wired keyboard",
+      "quantity": 15,
+      "reorderLevel": 10,
+      "supplierId": "301",
+      "createdAt": "2023-03-10T00:00:00Z",
+      "updatedAt": "2023-05-15T00:00:00Z"
+    },
+    {
+      "id": "404",
+      "name": "SSD 500GB",
+      "brand": "FastStorage",
+      "category": "Storage",
+      "description": "500GB SATA SSD",
+      "quantity": 6,
+      "reorderLevel": 5,
+      "supplierId": "302",
+      "createdAt": "2023-04-01T00:00:00Z",
+      "updatedAt": "2023-06-05T00:00:00Z"
+    }
+  ],
+  "devices": [
+    {
+      "id": "501",
+      "serialNumber": "MBP2020X12345",
+      "brand": "Apple",
+      "model": "MacBook Pro 2020",
+      "description": "13-inch, 16GB RAM, 512GB SSD",
+      "remarks": "Customer mentioned occasional overheating",
+      "problem": "Battery not holding charge",
+      "problemType": "HARDWARE",
+      "customerId": "101",
+      "technicianId": "201",
+      "createdAt": "2023-05-01T10:00:00Z",
+      "updatedAt": "2023-05-05T14:30:00Z"
+    },
+    {
+      "id": "502",
+      "serialNumber": "IP13A98765",
+      "brand": "Apple",
+      "model": "iPhone 13",
+      "description": "128GB, Blue",
+      "remarks": "Small scratch on back",
+      "problem": "Cracked screen",
+      "problemType": "HARDWARE",
+      "customerId": "102",
+      "technicianId": "202",
+      "createdAt": "2023-05-02T11:30:00Z",
+      "updatedAt": "2023-05-03T16:45:00Z"
+    },
+    {
+      "id": "503",
+      "serialNumber": "DXPS159357",
+      "brand": "Dell",
+      "model": "XPS 15",
+      "description": "2022 Model, 32GB RAM, 1TB SSD",
+      "remarks": "Business laptop - needs quick turnaround",
+      "problem": "Keyboard not working",
+      "problemType": "HARDWARE",
+      "customerId": "103",
+      "technicianId": "201",
+      "createdAt": "2023-05-03T13:15:00Z",
+      "updatedAt": "2023-05-10T10:00:00Z"
+    },
+    {
+      "id": "504",
+      "serialNumber": "SPX2022468",
+      "brand": "Microsoft",
+      "model": "Surface Pro X",
+      "description": "SQ2, 16GB RAM, 256GB SSD",
+      "remarks": "Personal device with sensitive data",
+      "problem": "Slow performance, possible malware",
+      "problemType": "SOFTWARE",
+      "customerId": "104",
+      "technicianId": "202",
+      "createdAt": "2023-05-10T15:45:00Z",
+      "updatedAt": "2023-05-12T11:30:00Z"
+    }
+  ],
+  "tickets": [
+    {
+      "id": "TKT-001",
+      "customerId": "101",
+      "technicianId": "201",
+      "deviceId": "501",
+      "description": "Battery replacement needed",
+      "diagnosis": "Battery health at 65%, needs replacement",
+      "status": "COMPLETED",
+      "report": "Replaced battery, tested all functions",
+      "timeline": "Received 05/01, Diagnosed 05/02, Completed 05/05",
+      "invoiceTotal": 129.99,
+      "createdAt": "2023-05-01T10:00:00Z",
+      "updatedAt": "2023-05-05T14:30:00Z"
+    },
+    {
+      "id": "TKT-002",
+      "customerId": "102",
+      "technicianId": "202",
+      "deviceId": "502",
+      "description": "Screen replacement needed",
+      "diagnosis": "Cracked LCD and touch layer",
+      "status": "COMPLETED",
+      "report": "Replaced screen assembly, tested touch sensitivity",
+      "timeline": "Received 05/02, Completed 05/03",
+      "invoiceTotal": 199.99,
+      "createdAt": "2023-05-02T11:30:00Z",
+      "updatedAt": "2023-05-03T16:45:00Z"
+    },
+    {
+      "id": "TKT-003",
+      "customerId": "103",
+      "technicianId": "201",
+      "deviceId": "503",
+      "description": "Keyboard not working",
+      "diagnosis": "Liquid damage to keyboard connector",
+      "status": "COMPLETED",
+      "report": "Replaced keyboard assembly, cleaned internals",
+      "timeline": "Received 05/03, Diagnosed 05/05, Completed 05/10",
+      "invoiceTotal": 249.99,
+      "createdAt": "2023-05-03T13:15:00Z",
+      "updatedAt": "2023-05-10T10:00:00Z"
+    },
+    {
+      "id": "TKT-004",
+      "customerId": "104",
+      "technicianId": "202",
+      "deviceId": "504",
+      "description": "Slow performance",
+      "diagnosis": "Malware infection and bloated startup items",
+      "status": "IN_PROGRESS",
+      "report": "Malware scan in progress",
+      "timeline": "Received 05/10, Diagnosed 05/11",
+      "invoiceTotal": null,
+      "createdAt": "2023-05-10T15:45:00Z",
+      "updatedAt": "2023-05-12T11:30:00Z"
+    },
+    {
+      "id": "TKT-005",
+      "customerId": "101",
+      "technicianId": "201",
+      "deviceId": "501",
+      "description": "Follow-up for battery issues",
+      "diagnosis": null,
+      "status": "PENDING",
+      "report": null,
+      "timeline": null,
+      "invoiceTotal": null,
+      "createdAt": "2023-06-01T09:00:00Z",
+      "updatedAt": "2023-06-01T09:00:00Z"
+    }
+  ],
+  "ticketItems": [
+    {
+      "id": "601",
+      "ticketId": "TKT-001",
+      "inventoryItemId": "401",
+      "quantity": 1
+    },
+    {
+      "id": "602",
+      "ticketId": "TKT-002",
+      "inventoryItemId": "402",
+      "quantity": 1
+    },
+    {
+      "id": "603",
+      "ticketId": "TKT-003",
+      "inventoryItemId": "403",
+      "quantity": 1
+    }
+  ]
+}
