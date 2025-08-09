@@ -2,8 +2,8 @@ import { useState, useEffect } from 'react';
 import { Table, Button, Space, Tag, message } from 'antd';
 import type { ColumnsType } from 'antd/es/table';
 import { PlusOutlined } from '@ant-design/icons';
-import TicketForm from './TicketForm';
 import { Ticket } from './ticket.types';
+import TicketForm from './TicketForm';
 
 export default function TicketList() {
   const [tickets, setTickets] = useState<Ticket[]>([]);
@@ -69,7 +69,19 @@ export default function TicketList() {
       render: (_, record) => (
         <Space size="middle">
           <Button onClick={() => handleEdit(record)}>Edit</Button>
-          <Button danger onClick={() => handleDelete(record.id)}>Delete</Button>
+          <Button
+  danger
+  onClick={() => {
+    if (record.id) {
+      handleDelete(record.id);
+    } else {
+      message.error('Invalid ticket ID');
+    }
+  }}
+>
+  Delete
+</Button>
+
         </Space>
       ),
     },
