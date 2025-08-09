@@ -2,8 +2,8 @@ import { useState, useEffect } from 'react';
 import { Table, Button, Space, message } from 'antd';
 import type { ColumnsType } from 'antd/es/table';
 import { PlusOutlined } from '@ant-design/icons';
-import CustomerForm from './CustomerForm';
 import { Customer } from './customer.types';
+import CustomerForm from './CustomerForm';
 
 export default function CustomerList() {
   const [customers, setCustomers] = useState<Customer[]>([]);
@@ -38,7 +38,19 @@ export default function CustomerList() {
       render: (_, record) => (
         <Space size="middle">
           <Button onClick={() => handleEdit(record)}>Edit</Button>
-          <Button danger onClick={() => handleDelete(record.id)}>Delete</Button>
+          <Button
+  danger
+  onClick={() => {
+    if (record.id) {
+      handleDelete(record.id);
+    } else {
+      message.error('Invalid customer ID');
+    }
+  }}
+>
+  Delete
+</Button>
+
         </Space>
       ),
     },
