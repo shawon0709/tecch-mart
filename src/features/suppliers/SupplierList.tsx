@@ -2,8 +2,8 @@ import { useState, useEffect } from 'react';
 import { Table, Button, Space, message } from 'antd';
 import type { ColumnsType } from 'antd/es/table';
 import { PlusOutlined } from '@ant-design/icons';
-import SupplierForm from './SupplierForm';
 import { Supplier } from './supplier.types';
+import SupplierForm from './SupplierForm';
 
 export default function SupplierList() {
   const [suppliers, setSuppliers] = useState<Supplier[]>([]);
@@ -38,7 +38,19 @@ export default function SupplierList() {
       render: (_, record) => (
         <Space size="middle">
           <Button onClick={() => handleEdit(record)}>Edit</Button>
-          <Button danger onClick={() => handleDelete(record.id)}>Delete</Button>
+          <Button
+  danger
+  onClick={() => {
+    if (record.id) {
+      handleDelete(record.id);
+    } else {
+      message.error('Invalid supplier ID');
+    }
+  }}
+>
+  Delete
+</Button>
+
         </Space>
       ),
     },
