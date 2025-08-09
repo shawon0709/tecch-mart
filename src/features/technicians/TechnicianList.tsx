@@ -2,8 +2,8 @@ import { useState, useEffect } from 'react';
 import { Table, Button, Space, message } from 'antd';
 import type { ColumnsType } from 'antd/es/table';
 import { PlusOutlined } from '@ant-design/icons';
-import TechnicianForm from './TechnicianForm';
 import { Technician } from './technician.types';
+import TechnicianForm from './TechnicianForm';
 
 export default function TechnicianList() {
   const [technicians, setTechnicians] = useState<Technician[]>([]);
@@ -28,7 +28,19 @@ export default function TechnicianList() {
       render: (_, record) => (
         <Space size="middle">
           <Button onClick={() => handleEdit(record)}>Edit</Button>
-          <Button danger onClick={() => handleDelete(record.id)}>Delete</Button>
+          <Button
+  danger
+  onClick={() => {
+    if (record.id) {
+      handleDelete(record.id);
+    } else {
+      message.error('Technician ID is missing');
+    }
+  }}
+>
+  Delete
+</Button>
+
         </Space>
       ),
     },
