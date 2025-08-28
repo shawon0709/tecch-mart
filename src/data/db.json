@@ -83,55 +83,63 @@
     }
   ],
   "inventoryItems": [
-    {
-      "id": "401",
-      "name": "Laptop Battery",
-      "brand": "PowerCell",
-      "category": "Laptop Parts",
-      "description": "Replacement battery for most 15\" laptops",
-      "quantity": 8,
-      "reorderLevel": 5,
-      "supplierId": "301",
-      "createdAt": "2023-03-01T00:00:00Z",
-      "updatedAt": "2023-06-01T00:00:00Z"
-    },
-    {
-      "id": "402",
-      "name": "iPhone Screen",
-      "brand": "DisplayPro",
-      "category": "Phone Parts",
-      "description": "Replacement screen for iPhone 13",
-      "quantity": 3,
-      "reorderLevel": 5,
-      "supplierId": "302",
-      "createdAt": "2023-03-05T00:00:00Z",
-      "updatedAt": "2023-06-10T00:00:00Z"
-    },
-    {
-      "id": "403",
-      "name": "Keyboard",
-      "brand": "KeyTech",
-      "category": "Accessories",
-      "description": "USB wired keyboard",
-      "quantity": 15,
-      "reorderLevel": 10,
-      "supplierId": "301",
-      "createdAt": "2023-03-10T00:00:00Z",
-      "updatedAt": "2023-05-15T00:00:00Z"
-    },
-    {
-      "id": "404",
-      "name": "SSD 500GB",
-      "brand": "FastStorage",
-      "category": "Storage",
-      "description": "500GB SATA SSD",
-      "quantity": 6,
-      "reorderLevel": 5,
-      "supplierId": "302",
-      "createdAt": "2023-04-01T00:00:00Z",
-      "updatedAt": "2023-06-05T00:00:00Z"
-    }
-  ],
+  {
+    "id": "401",
+    "name": "Laptop Battery",
+    "brand": "PowerCell",
+    "model": "BAT-15L-2023",
+    "serialNumber": "PC-BAT-001234",
+    "category": "Laptop Parts",
+    "description": "Replacement battery for most 15\" laptops",
+    "quantity": 8,
+    "reorderLevel": 5,
+    "supplierId": "301",
+    "createdAt": "2023-03-01T00:00:00Z",
+    "updatedAt": "2023-06-01T00:00:00Z"
+  },
+  {
+    "id": "402",
+    "name": "iPhone Screen",
+    "brand": "DisplayPro",
+    "model": "IP13-SCREEN-OLED",
+    "serialNumber": "DP-SCR-005678",
+    "category": "Phone Parts",
+    "description": "Replacement screen for iPhone 13",
+    "quantity": 3,
+    "reorderLevel": 5,
+    "supplierId": "302",
+    "createdAt": "2023-03-05T00:00:00Z",
+    "updatedAt": "2023-06-10T00:00:00Z"
+  },
+  {
+    "id": "403",
+    "name": "Keyboard",
+    "brand": "KeyTech",
+    "model": "KT-USB-WIRED",
+    "serialNumber": "KT-KB-009876",
+    "category": "Accessories",
+    "description": "USB wired keyboard",
+    "quantity": 15,
+    "reorderLevel": 10,
+    "supplierId": "301",
+    "createdAt": "2023-03-10T00:00:00Z",
+    "updatedAt": "2023-05-15T00:00:00Z"
+  },
+  {
+    "id": "404",
+    "name": "SSD 500GB",
+    "brand": "FastStorage",
+    "model": "FS-SSD-500-SATA",
+    "serialNumber": "FS-SSD-003452",
+    "category": "Storage",
+    "description": "500GB SATA SSD",
+    "quantity": 6,
+    "reorderLevel": 5,
+    "supplierId": "302",
+    "createdAt": "2023-04-01T00:00:00Z",
+    "updatedAt": "2023-06-05T00:00:00Z"
+  }
+],
   "devices": [
     {
       "id": "501",

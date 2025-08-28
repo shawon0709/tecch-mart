@@ -1,18 +1,9 @@
 import { useState, useEffect } from 'react';
-import { Table, Button, Space, Tag, message } from 'antd';
-import type { ColumnsType } from 'antd/es/table';
+import { Button, Space, Tag, message } from 'antd';
 import { PlusOutlined } from '@ant-design/icons';
 import InventoryForm from './InventoryForm';
-
-interface InventoryItem {
-  id: string;
-  name: string;
-  brand: string;
-  category: string;
-  quantity: number;
-  reorderLevel: number;
-  supplierId: string;
-}
+import { InventoryItem } from './inventory.types';
+import DataTable, { DataTableColumn } from '../../components/ui/DataTable';
 
 export default function InventoryList() {
   const [items, setItems] = useState<InventoryItem[]>([]);
@@ -20,26 +11,43 @@ export default function InventoryList() {
   const [showForm, setShowForm] = useState(false);
   const [editingItem, setEditingItem] = useState<InventoryItem | null>(null);
 
-  const columns: ColumnsType<InventoryItem> = [
+  const columns: DataTableColumn[] = [
     {
+      key: 'name',
       title: 'Name',
       dataIndex: 'name',
-      key: 'name',
+      sorter: (a, b) => a.name.localeCompare(b.name),
     },
     {
+      key: 'brand',
       title: 'Brand',
       dataIndex: 'brand',
-      key: 'brand',
+      sorter: (a, b) => a.brand.localeCompare(b.brand),
     },
     {
+      key: 'model',
+      title: 'Model',
+      dataIndex: 'model',
+      render: (model) => model || 'N/A',
+      sorter: (a, b) => (a.model || '').localeCompare(b.model || ''),
+    },
+    {
+      key: 'serialNumber',
+      title: 'Serial Number',
+      dataIndex: 'serialNumber',
+      render: (serialNumber) => serialNumber || 'N/A',
+    },
+    {
+      key: 'category',
       title: 'Category',
       dataIndex: 'category',
-      key: 'category',
+      sorter: (a, b) => a.category.localeCompare(b.category),
     },
     {
+      key: 'quantity',
       title: 'Quantity',
       dataIndex: 'quantity',
-      key: 'quantity',
+      sorter: (a, b) => a.quantity - b.quantity,
       render: (quantity, record) => (
         <Tag color={quantity <= record.reorderLevel ? 'red' : 'green'}>
           {quantity}
@@ -47,17 +55,38 @@ export default function InventoryList() {
       ),
     },
     {
+      key: 'reorderLevel',
       title: 'Reorder Level',
       dataIndex: 'reorderLevel',
-      key: 'reorderLevel',
+      sorter: (a, b) => a.reorderLevel - b.reorderLevel,
     },
     {
-      title: 'Action',
+      key: 'status',
+      title: 'Status',
+      dataIndex: 'status',
+      render: (_, record) => (
+        <Tag color={record.quantity <= record.reorderLevel ? 'red' : 'green'}>
+          {record.quantity <= record.reorderLevel ? 'Low Stock' : 'In Stock'}
+        </Tag>
+      ),
+      filters: [
+        { text: 'Low Stock', value: 'low' },
+        { text: 'In Stock', value: 'normal' },
+      ],
+      onFilter: (value, record) => {
+        if (value === 'low') return record.quantity <= record.reorderLevel;
+        if (value === 'normal') return record.quantity > record.reorderLevel;
+        return true;
+      },
+    },
+    {
       key: 'action',
+      title: 'Action',
+      dataIndex: 'action',
       render: (_, record) => (
         <Space size="middle">
           <Button onClick={() => handleEdit(record)}>Edit</Button>
-          <Button danger>Delete</Button>
+          <Button danger onClick={() => handleDelete(record.id)}>Delete</Button>
         </Space>
       ),
     },
@@ -73,6 +102,24 @@ export default function InventoryList() {
       message.error('Failed to fetch inventory items');
     } finally {
       setLoading(false);
+    }
+  };
+
+  const handleDelete = async (id?: string) => {
+    if (!id) return;
+    
+    try {
+      const response = await fetch(`/api/inventory/${id}`, {
+        method: 'DELETE',
+      });
+      if (response.ok) {
+        message.success('Item deleted successfully');
+        fetchItems();
+      } else {
+        message.error('Failed to delete item');
+      }
+    } catch (error) {
+      message.error('An error occurred');
     }
   };
 
@@ -108,11 +155,19 @@ export default function InventoryList() {
         </Button>
       </div>
 
-      <Table
+      <DataTable
         columns={columns}
-        dataSource={items}
+        data={items}
         loading={loading}
+        title="Inventory Items"
         rowKey="id"
+        pagination={{ pageSize: 10 }}
+        scroll={{ x: 1000 }}
+        actions={
+          <Button onClick={fetchItems} loading={loading}>
+            Refresh
+          </Button>
+        }
       />
 
       <InventoryForm

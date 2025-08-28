@@ -80,23 +80,43 @@ export default function InventoryForm({
       onOk={handleSubmit}
       onCancel={onClose}
       confirmLoading={loading}
+      width={600}
     >
       <Form form={form} layout="vertical">
-        <Form.Item
-          name="name"
-          label="Name"
-          rules={[{ required: true, message: 'Please input the item name!' }]}
-        >
-          <Input />
-        </Form.Item>
+        <div className="grid grid-cols-2 gap-4">
+          <Form.Item
+            name="name"
+            label="Item Name"
+            rules={[{ required: true, message: 'Please input the item name!' }]}
+          >
+            <Input />
+          </Form.Item>
 
-        <Form.Item
-          name="brand"
-          label="Brand"
-          rules={[{ required: true, message: 'Please input the brand!' }]}
-        >
-          <Input />
-        </Form.Item>
+          <Form.Item
+            name="serialNumber"
+            label="Serial Number"
+            rules={[{ required: true, message: 'Please input the model!' }]}
+          >
+            <Input />
+          </Form.Item>
+
+          <Form.Item
+            name="brand"
+            label="Brand"
+            rules={[{ required: true, message: 'Please input the brand!' }]}
+          >
+            <Input />
+          </Form.Item>
+
+          <Form.Item
+            name="model"
+            label="Model"
+            rules={[{ required: true, message: 'Please input the model!' }]}
+          >
+            <Input />
+          </Form.Item>
+          
+        </div>
 
         <Form.Item
           name="category"
@@ -110,24 +130,26 @@ export default function InventoryForm({
           name="description"
           label="Description"
         >
-          <Input.TextArea />
+          <Input.TextArea rows={3} />
         </Form.Item>
 
-        <Form.Item
-          name="quantity"
-          label="Quantity"
-          rules={[{ required: true, message: 'Please input the quantity!' }]}
-        >
-          <InputNumber min={0} style={{ width: '100%' }} />
-        </Form.Item>
+        <div className="grid grid-cols-2 gap-4">
+          <Form.Item
+            name="quantity"
+            label="Quantity"
+            rules={[{ required: true, message: 'Please input the quantity!' }]}
+          >
+            <InputNumber min={0} style={{ width: '100%' }} />
+          </Form.Item>
 
-        <Form.Item
-          name="reorderLevel"
-          label="Reorder Level"
-          rules={[{ required: true, message: 'Please input the reorder level!' }]}
-        >
-          <InputNumber min={0} style={{ width: '100%' }} />
-        </Form.Item>
+          <Form.Item
+            name="reorderLevel"
+            label="Reorder Level"
+            rules={[{ required: true, message: 'Please input the reorder level!' }]}
+          >
+            <InputNumber min={0} style={{ width: '100%' }} />
+          </Form.Item>
+        </div>
 
         <Form.Item
           name="supplierId"
