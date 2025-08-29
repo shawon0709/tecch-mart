@@ -1,36 +1,47 @@
 import { useState, useEffect } from 'react';
-import { Table, Button, Space, Tag, message } from 'antd';
-import type { ColumnsType } from 'antd/es/table';
+import { Button, Space, Tag, message } from 'antd';
 import { PrinterOutlined } from '@ant-design/icons';
 import { Ticket } from '../repairs/ticket.types';
+import DataTable, { DataTableColumn } from '@/components/ui/DataTable';
 
 export default function InvoiceList() {
   const [invoices, setInvoices] = useState<Ticket[]>([]);
   const [loading, setLoading] = useState(false);
   const [customers, setCustomers] = useState<any[]>([]);
 
-  const columns: ColumnsType<Ticket> = [
+  const columns: DataTableColumn[] = [
     {
+      key: 'id',
       title: 'Ticket ID',
       dataIndex: 'id',
-      key: 'id',
+      excelFilter: true,
+      sorter: (a, b) => (a.id || '').localeCompare(b.id || ''),
     },
     {
+      key: 'customerId',
       title: 'Customer',
       dataIndex: 'customerId',
-      key: 'customer',
-      render: (id) => customers.find(c => c.id === id)?.name || id,
+      excelFilter: true,
+      render: (id) => customers.find((c) => c.id === id)?.name || id,
+      sorter: (a, b) => {
+        const nameA = customers.find((c) => c.id === a.customerId)?.name || '';
+        const nameB = customers.find((c) => c.id === b.customerId)?.name || '';
+        return nameA.localeCompare(nameB);
+      },
     },
     {
+      key: 'invoiceTotal',
       title: 'Amount',
       dataIndex: 'invoiceTotal',
-      key: 'amount',
-      render: (amount) => amount ? `$${amount.toFixed(2)}` : '-',
+      excelFilter: true,
+      render: (amount) => (amount ? `$${amount.toFixed(2)}` : '-'),
+      sorter: (a, b) => (a.invoiceTotal || 0) - (b.invoiceTotal || 0),
     },
     {
+      key: 'status',
       title: 'Status',
       dataIndex: 'status',
-      key: 'status',
+      excelFilter: true,
       render: (status) => {
         let color = '';
         switch (status) {
@@ -42,10 +53,16 @@ export default function InvoiceList() {
         }
         return <Tag color={color}>{status.replace('_', ' ')}</Tag>;
       },
+      filters: [
+        { text: 'Completed', value: 'COMPLETED' },
+        { text: 'Pending', value: 'PENDING' },
+      ],
+      onFilter: (value, record) => record.status === value,
     },
     {
-      title: 'Action',
       key: 'action',
+      title: 'Action',
+      dataIndex: 'action',
       render: (_, record) => (
         <Space size="middle">
           <Button icon={<PrinterOutlined />} onClick={() => handlePrint(record)}>
@@ -74,7 +91,6 @@ export default function InvoiceList() {
   };
 
   const handlePrint = (invoice: Ticket) => {
-    // In a real app, this would generate a PDF or open a print dialog
     message.info(`Printing invoice for ticket ${invoice.id}`);
   };
 
@@ -84,15 +100,24 @@ export default function InvoiceList() {
 
   return (
     <div>
-      <div className="flex justify-between items-center mb-4">
-        <h2 className="text-xl font-semibold">Invoice Management</h2>
-      </div>
-
-      <Table
+      <DataTable
         columns={columns}
-        dataSource={invoices}
+        data={invoices}
         loading={loading}
         rowKey="id"
+        searchable={true}
+        showSearch={true}
+        onSearch={(searchText) => {
+          console.log('Searching invoices for:', searchText);
+        }}
+        actions={
+          <>
+            <Button onClick={fetchData} loading={loading}>
+              Refresh
+            </Button>
+          </>
+        }
+        pagination={{ pageSize: 10, showSizeChanger: true }}
       />
     </div>
   );

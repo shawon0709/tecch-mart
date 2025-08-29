@@ -16,6 +16,7 @@ import InventoryReport from '@/features/reports/InventoryReport';
 import OverviewCards from '@/features/dashboard/OverviewCards';
 import RecentTickets from '@/features/dashboard/RecentTickets';
 import DeviceList from '@/features/repairs/DeviceList';
+import ReceiverList from '@/features/receivers/ReceiverList';
 
 export default function Dashboard() {
   const router = useRouter();
@@ -60,6 +61,8 @@ const renderSection = () => {
       return <DeviceList />;
     case 'billing':
       return <InvoiceList />;
+    case 'receivers':
+      return <ReceiverList />;
     case 'reports':
       return (
         <>

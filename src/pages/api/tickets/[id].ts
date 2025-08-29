@@ -7,9 +7,20 @@ const dbPath = path.join(process.cwd(), 'src', 'data', 'db.json');
 export default function handler(req: NextApiRequest, res: NextApiResponse) {
   const { id } = req.query;
 
+  // Read the database
   const db = JSON.parse(fs.readFileSync(dbPath, 'utf-8'));
 
-  if (req.method === 'PUT') {
+  if (req.method === 'GET') {
+    // Handle GET request - fetch single ticket
+    const ticket = db.tickets.find((t: any) => t.id === id);
+    
+    if (!ticket) {
+      return res.status(404).json({ message: 'Ticket not found' });
+    }
+
+    return res.status(200).json(ticket);
+  } else if (req.method === 'PUT') {
+    // Handle PUT request - update ticket
     const index = db.tickets.findIndex((t: any) => t.id === id);
     if (index === -1) {
       return res.status(404).json({ message: 'Ticket not found' });
@@ -25,6 +36,7 @@ export default function handler(req: NextApiRequest, res: NextApiResponse) {
     fs.writeFileSync(dbPath, JSON.stringify(db, null, 2));
     return res.status(200).json(updatedTicket);
   } else if (req.method === 'DELETE') {
+    // Handle DELETE request - delete ticket
     const index = db.tickets.findIndex((t: any) => t.id === id);
     if (index === -1) {
       return res.status(404).json({ message: 'Ticket not found' });
@@ -34,7 +46,8 @@ export default function handler(req: NextApiRequest, res: NextApiResponse) {
     fs.writeFileSync(dbPath, JSON.stringify(db, null, 2));
     return res.status(204).end();
   } else {
-    res.setHeader('Allow', ['PUT', 'DELETE']);
-    res.status(405).end(`Method ${req.method} Not Allowed`);
+    // Handle unsupported methods
+    res.setHeader('Allow', ['GET', 'PUT', 'DELETE']);
+    return res.status(405).end(`Method ${req.method} Not Allowed`);
   }
 }

@@ -11,7 +11,6 @@ interface DeviceFormProps {
   onSubmit: () => void;
   initialValues?: Device | null;
   customers: any[];
-  technicians: any[];
 }
 
 export default function DeviceForm({
@@ -20,7 +19,6 @@ export default function DeviceForm({
   onSubmit,
   initialValues,
   customers,
-  technicians,
 }: DeviceFormProps) {
   const [form] = Form.useForm();
   const [loading, setLoading] = useState(false);
@@ -110,37 +108,6 @@ export default function DeviceForm({
               </Option>
             ))}
           </Select>
-        </Form.Item>
-
-        <Form.Item
-          name="technicianId"
-          label="Technician"
-        >
-          <Select placeholder="Select technician">
-            {technicians.map(tech => (
-              <Option key={tech.id} value={tech.id}>
-                {tech.name}
-              </Option>
-            ))}
-          </Select>
-        </Form.Item>
-
-        <Form.Item
-          name="problemType"
-          label="Problem Type"
-        >
-          <Select placeholder="Select problem type">
-            <Option value="HARDWARE">Hardware</Option>
-            <Option value="SOFTWARE">Software</Option>
-            <Option value="OTHER">Other</Option>
-          </Select>
-        </Form.Item>
-
-        <Form.Item
-          name="problem"
-          label="Problem Description"
-        >
-          <TextArea rows={3} />
         </Form.Item>
 
         <Form.Item

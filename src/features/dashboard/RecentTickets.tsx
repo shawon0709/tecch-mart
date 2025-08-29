@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Card, Table, Tag, Spin } from 'antd';
 import type { ColumnsType } from 'antd/es/table';
+import { formatDate, formatTime } from '@/lib/dateUtils';
 
 interface Ticket {
   id: string;
@@ -98,7 +99,12 @@ export default function RecentTickets() {
       title: 'Created At',
       dataIndex: 'createdAt',
       key: 'createdAt',
-      render: (date: string) => new Date(date).toLocaleDateString(),
+      render: (date: string) => (
+      <div>
+        <div>{formatDate(date)}</div>
+        <div className="text-xs text-gray-500">{formatTime(date)}</div>
+      </div>
+    ),
     },
   ];
 

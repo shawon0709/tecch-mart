@@ -144,17 +144,6 @@ export default function InventoryList() {
 
   return (
     <div>
-      <div className="flex justify-between items-center mb-4">
-        <h2 className="text-xl font-semibold">Inventory Management</h2>
-        <Button
-          type="primary"
-          icon={<PlusOutlined />}
-          onClick={() => setShowForm(true)}
-        >
-          Add Item
-        </Button>
-      </div>
-
       <DataTable
         columns={columns}
         data={items}
@@ -162,11 +151,19 @@ export default function InventoryList() {
         title="Inventory Items"
         rowKey="id"
         pagination={{ pageSize: 10 }}
-        scroll={{ x: 1000 }}
         actions={
+          <>
           <Button onClick={fetchItems} loading={loading}>
             Refresh
           </Button>
+          <Button
+          type="primary"
+          icon={<PlusOutlined />}
+          onClick={() => setShowForm(true)}
+        >
+          Add Item
+        </Button>
+          </>
         }
       />
 

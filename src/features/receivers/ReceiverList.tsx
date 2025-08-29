@@ -1,15 +1,15 @@
 import { useState, useEffect } from 'react';
 import { Button, Space, message } from 'antd';
 import { PlusOutlined } from '@ant-design/icons';
-import { Technician } from './technician.types';
-import TechnicianForm from './TechnicianForm';
+import { Receiver } from './receiver.types';
+import ReceiverForm from './ReceiverForm';
 import DataTable, { DataTableColumn } from '@/components/ui/DataTable';
 
-export default function TechnicianList() {
-  const [technicians, setTechnicians] = useState<Technician[]>([]);
+export default function ReceiverList() {
+  const [receivers, setReceivers] = useState<Receiver[]>([]);
   const [loading, setLoading] = useState(false);
   const [showForm, setShowForm] = useState(false);
-  const [editingTechnician, setEditingTechnician] = useState<Technician | null>(null);
+  const [editingReceiver, setEditingReceiver] = useState<Receiver | null>(null);
 
   const columns: DataTableColumn[] = [
     {
@@ -39,7 +39,7 @@ export default function TechnicianList() {
               if (record.id) {
                 handleDelete(record.id);
               } else {
-                message.error('Technician ID is missing');
+                message.error('Receiver ID is missing');
               }
             }}
           >
@@ -50,14 +50,14 @@ export default function TechnicianList() {
     },
   ];
 
-  const fetchTechnicians = async () => {
+  const fetchReceivers = async () => {
     setLoading(true);
     try {
-      const response = await fetch('/api/technicians');
+      const response = await fetch('/api/receivers');
       const data = await response.json();
-      setTechnicians(data);
+      setReceivers(data);
     } catch (error) {
-      message.error('Failed to fetch technicians');
+      message.error('Failed to fetch receivers');
     } finally {
       setLoading(false);
     }
@@ -65,14 +65,14 @@ export default function TechnicianList() {
 
   const handleDelete = async (id: string) => {
     try {
-      const response = await fetch(`/api/technicians/${id}`, {
+      const response = await fetch(`/api/receivers/${id}`, {
         method: 'DELETE',
       });
       if (response.ok) {
-        message.success('Technician deleted successfully');
-        fetchTechnicians();
+        message.success('Receiver deleted successfully');
+        fetchReceivers();
       } else {
-        message.error('Failed to delete technician');
+        message.error('Failed to delete receiver');
       }
     } catch (error) {
       message.error('An error occurred');
@@ -80,21 +80,21 @@ export default function TechnicianList() {
   };
 
   useEffect(() => {
-    fetchTechnicians();
+    fetchReceivers();
   }, []);
 
-  const handleEdit = (technician: Technician) => {
-    setEditingTechnician(technician);
+  const handleEdit = (receiver: Receiver) => {
+    setEditingReceiver(receiver);
     setShowForm(true);
   };
 
   const handleFormClose = () => {
     setShowForm(false);
-    setEditingTechnician(null);
+    setEditingReceiver(null);
   };
 
   const handleFormSubmit = () => {
-    fetchTechnicians();
+    fetchReceivers();
     handleFormClose();
   };
 
@@ -102,17 +102,17 @@ export default function TechnicianList() {
     <div>
       <DataTable
         columns={columns}
-        data={technicians}
+        data={receivers}
         loading={loading}
         rowKey="id"
         searchable={true}
         showSearch={true}
         onSearch={(searchText) => {
-          console.log('Searching technicians for:', searchText);
+          console.log('Searching receivers for:', searchText);
         }}
         actions={
           <>
-            <Button onClick={fetchTechnicians} loading={loading}>
+            <Button onClick={fetchReceivers} loading={loading}>
               Refresh
             </Button>
             <Button
@@ -120,18 +120,18 @@ export default function TechnicianList() {
               icon={<PlusOutlined />}
               onClick={() => setShowForm(true)}
             >
-              Add Technician
+              Add Receiver
             </Button>
           </>
         }
         pagination={{ pageSize: 10, showSizeChanger: true }}
       />
 
-      <TechnicianForm
+      <ReceiverForm
         visible={showForm}
         onClose={handleFormClose}
         onSubmit={handleFormSubmit}
-        initialValues={editingTechnician}
+        initialValues={editingReceiver}
       />
     </div>
   );

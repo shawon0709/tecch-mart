@@ -71,3 +71,62 @@ body {
     margin-bottom: 8px;
   }
 }
+
+/* Print Styles */
+@media print {
+  body * {
+    visibility: hidden;
+  }
+  
+  .printable-invoice,
+  .printable-invoice * {
+    visibility: visible;
+  }
+  
+  .printable-invoice {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    background: white;
+  }
+  
+  .no-print,
+  .no-print * {
+    display: none !important;
+  }
+  
+  .ant-modal,
+  .ant-modal-content {
+    position: relative;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    box-shadow: none;
+  }
+  
+  .ant-modal-body {
+    padding: 0;
+  }
+}
+
+/* Invoice specific styles */
+.printable-invoice {
+  font-family: Arial, sans-serif;
+  line-height: 1.4;
+}
+
+.printable-invoice table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.printable-invoice th,
+.printable-invoice td {
+  border: 1px solid #000;
+  padding: 8px 12px;
+}
+
+.printable-invoice .ant-card {
+  margin-bottom: 16px;
+}

@@ -83,66 +83,67 @@
     }
   ],
   "inventoryItems": [
-  {
-    "id": "401",
-    "name": "Laptop Battery",
-    "brand": "PowerCell",
-    "model": "BAT-15L-2023",
-    "serialNumber": "PC-BAT-001234",
-    "category": "Laptop Parts",
-    "description": "Replacement battery for most 15\" laptops",
-    "quantity": 8,
-    "reorderLevel": 5,
-    "supplierId": "301",
-    "createdAt": "2023-03-01T00:00:00Z",
-    "updatedAt": "2023-06-01T00:00:00Z"
-  },
-  {
-    "id": "402",
-    "name": "iPhone Screen",
-    "brand": "DisplayPro",
-    "model": "IP13-SCREEN-OLED",
-    "serialNumber": "DP-SCR-005678",
-    "category": "Phone Parts",
-    "description": "Replacement screen for iPhone 13",
-    "quantity": 3,
-    "reorderLevel": 5,
-    "supplierId": "302",
-    "createdAt": "2023-03-05T00:00:00Z",
-    "updatedAt": "2023-06-10T00:00:00Z"
-  },
-  {
-    "id": "403",
-    "name": "Keyboard",
-    "brand": "KeyTech",
-    "model": "KT-USB-WIRED",
-    "serialNumber": "KT-KB-009876",
-    "category": "Accessories",
-    "description": "USB wired keyboard",
-    "quantity": 15,
-    "reorderLevel": 10,
-    "supplierId": "301",
-    "createdAt": "2023-03-10T00:00:00Z",
-    "updatedAt": "2023-05-15T00:00:00Z"
-  },
-  {
-    "id": "404",
-    "name": "SSD 500GB",
-    "brand": "FastStorage",
-    "model": "FS-SSD-500-SATA",
-    "serialNumber": "FS-SSD-003452",
-    "category": "Storage",
-    "description": "500GB SATA SSD",
-    "quantity": 6,
-    "reorderLevel": 5,
-    "supplierId": "302",
-    "createdAt": "2023-04-01T00:00:00Z",
-    "updatedAt": "2023-06-05T00:00:00Z"
-  }
-],
+    {
+      "id": "401",
+      "name": "Laptop Battery",
+      "brand": "PowerCell",
+      "model": "BAT-15L-2023",
+      "serialNumber": "PC-BAT-001234",
+      "category": "Laptop Parts",
+      "description": "Replacement battery for most 15\" laptops",
+      "quantity": 8,
+      "reorderLevel": 5,
+      "supplierId": "301",
+      "createdAt": "2023-03-01T00:00:00Z",
+      "updatedAt": "2023-06-01T00:00:00Z"
+    },
+    {
+      "id": "402",
+      "name": "iPhone Screen",
+      "brand": "DisplayPro",
+      "model": "IP13-SCREEN-OLED",
+      "serialNumber": "DP-SCR-005678",
+      "category": "Phone Parts",
+      "description": "Replacement screen for iPhone 13",
+      "quantity": 3,
+      "reorderLevel": 5,
+      "supplierId": "302",
+      "createdAt": "2023-03-05T00:00:00Z",
+      "updatedAt": "2023-06-10T00:00:00Z"
+    },
+    {
+      "id": "403",
+      "name": "Keyboard",
+      "brand": "KeyTech",
+      "model": "KT-USB-WIRED",
+      "serialNumber": "KT-KB-009876",
+      "category": "Accessories",
+      "description": "USB wired keyboard",
+      "quantity": 15,
+      "reorderLevel": 10,
+      "supplierId": "301",
+      "createdAt": "2023-03-10T00:00:00Z",
+      "updatedAt": "2023-05-15T00:00:00Z"
+    },
+    {
+      "id": "404",
+      "name": "SSD 500GB",
+      "brand": "FastStorage",
+      "model": "FS-SSD-500-SATA",
+      "serialNumber": "FS-SSD-003452",
+      "category": "Storage",
+      "description": "500GB SATA SSD",
+      "quantity": 6,
+      "reorderLevel": 5,
+      "supplierId": "302",
+      "createdAt": "2023-04-01T00:00:00Z",
+      "updatedAt": "2023-06-05T00:00:00Z"
+    }
+  ],
   "devices": [
     {
       "id": "501",
+      "uniqueId": "APPL-MBP2-MBP2",
       "serialNumber": "MBP2020X12345",
       "brand": "Apple",
       "model": "MacBook Pro 2020",
@@ -151,12 +152,12 @@
       "problem": "Battery not holding charge",
       "problemType": "HARDWARE",
       "customerId": "101",
-      "technicianId": "201",
       "createdAt": "2023-05-01T10:00:00Z",
       "updatedAt": "2023-05-05T14:30:00Z"
     },
     {
       "id": "502",
+      "uniqueId": "APPL-IP13-IP13",
       "serialNumber": "IP13A98765",
       "brand": "Apple",
       "model": "iPhone 13",
@@ -165,12 +166,12 @@
       "problem": "Cracked screen",
       "problemType": "HARDWARE",
       "customerId": "102",
-      "technicianId": "202",
       "createdAt": "2023-05-02T11:30:00Z",
       "updatedAt": "2023-05-03T16:45:00Z"
     },
     {
       "id": "503",
+      "uniqueId": "DELL-IP13-IP13",
       "serialNumber": "DXPS159357",
       "brand": "Dell",
       "model": "XPS 15",
@@ -179,12 +180,12 @@
       "problem": "Keyboard not working",
       "problemType": "HARDWARE",
       "customerId": "103",
-      "technicianId": "201",
       "createdAt": "2023-05-03T13:15:00Z",
       "updatedAt": "2023-05-10T10:00:00Z"
     },
     {
       "id": "504",
+      "uniqueId": "MCRSFT-IP13-IP13",
       "serialNumber": "SPX2022468",
       "brand": "Microsoft",
       "model": "Surface Pro X",
@@ -193,81 +194,37 @@
       "problem": "Slow performance, possible malware",
       "problemType": "SOFTWARE",
       "customerId": "104",
-      "technicianId": "202",
       "createdAt": "2023-05-10T15:45:00Z",
       "updatedAt": "2023-05-12T11:30:00Z"
+    },
+    {
+      "serialNumber": "DLL123456789",
+      "brand": "Dell",
+      "model": "XPS 13 9310",
+      "customerId": "103",
+      "uniqueId": "DELL-XPS -DLL1",
+      "id": "1756495308570",
+      "createdAt": "2025-08-29T19:21:48.570Z",
+      "updatedAt": "2025-08-29T19:21:48.570Z"
     }
   ],
   "tickets": [
     {
-      "id": "TKT-001",
-      "customerId": "101",
-      "technicianId": "201",
-      "deviceId": "501",
-      "description": "Battery replacement needed",
-      "diagnosis": "Battery health at 65%, needs replacement",
-      "status": "COMPLETED",
-      "report": "Replaced battery, tested all functions",
-      "timeline": "Received 05/01, Diagnosed 05/02, Completed 05/05",
-      "invoiceTotal": 129.99,
-      "createdAt": "2023-05-01T10:00:00Z",
-      "updatedAt": "2023-05-05T14:30:00Z"
-    },
-    {
       "id": "TKT-002",
       "customerId": "102",
       "technicianId": "202",
+      "receivedById": "1756490104875",
       "deviceId": "502",
+      "deviceUniqueId": "APPL-IP13-IP13",
       "description": "Screen replacement needed",
       "diagnosis": "Cracked LCD and touch layer",
       "status": "COMPLETED",
+      "consultancyFee": 200,
       "report": "Replaced screen assembly, tested touch sensitivity",
       "timeline": "Received 05/02, Completed 05/03",
-      "invoiceTotal": 199.99,
+      "invoiceTotal": 399.99,
       "createdAt": "2023-05-02T11:30:00Z",
       "updatedAt": "2023-05-03T16:45:00Z"
-    },
-    {
-      "id": "TKT-003",
-      "customerId": "103",
-      "technicianId": "201",
-      "deviceId": "503",
-      "description": "Keyboard not working",
-      "diagnosis": "Liquid damage to keyboard connector",
-      "status": "COMPLETED",
-      "report": "Replaced keyboard assembly, cleaned internals",
-      "timeline": "Received 05/03, Diagnosed 05/05, Completed 05/10",
-      "invoiceTotal": 249.99,
-      "createdAt": "2023-05-03T13:15:00Z",
-      "updatedAt": "2023-05-10T10:00:00Z"
-    },
-    {
-      "id": "TKT-004",
-      "customerId": "104",
-      "technicianId": "202",
-      "deviceId": "504",
-      "description": "Slow performance",
-      "diagnosis": "Malware infection and bloated startup items",
-      "status": "IN_PROGRESS",
-      "report": "Malware scan in progress",
-      "timeline": "Received 05/10, Diagnosed 05/11",
-      "invoiceTotal": null,
-      "createdAt": "2023-05-10T15:45:00Z",
-      "updatedAt": "2023-05-12T11:30:00Z"
-    },
-    {
-      "id": "TKT-005",
-      "customerId": "101",
-      "technicianId": "201",
-      "deviceId": "501",
-      "description": "Follow-up for battery issues",
-      "diagnosis": null,
-      "status": "PENDING",
-      "report": null,
-      "timeline": null,
-      "invoiceTotal": null,
-      "createdAt": "2023-06-01T09:00:00Z",
-      "updatedAt": "2023-06-01T09:00:00Z"
     }
   ],
   "ticketItems": [
@@ -288,6 +245,15 @@
       "ticketId": "TKT-003",
       "inventoryItemId": "403",
       "quantity": 1
+    }
+  ],
+  "receivers": [
+    {
+      "id": "1756490104875",
+      "name": "Devy Johns",
+      "email": "devyjhones@techmart.com",
+      "createdAt": "2025-08-29T17:55:04.876Z",
+      "updatedAt": "2025-08-29T17:55:04.878Z"
     }
   ]
 }

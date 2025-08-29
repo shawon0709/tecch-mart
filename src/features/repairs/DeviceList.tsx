@@ -1,65 +1,88 @@
 import { useState, useEffect } from 'react';
-import { Table, Button, Space, message } from 'antd';
-import type { ColumnsType } from 'antd/es/table';
-import { PlusOutlined } from '@ant-design/icons';
-import DeviceForm from './DeviceForm';
+import { Button, Space, message } from 'antd';
+import { HistoryOutlined, PlusOutlined } from '@ant-design/icons';
 import { Device } from './ticket.types';
+import DeviceForm from './DeviceForm';
+import DeviceHistoryModal from '../deviceHistory/DeviceHistoryModal';
+import DataTable, { DataTableColumn } from '@/components/ui/DataTable';
 
 export default function DeviceList() {
   const [devices, setDevices] = useState<Device[]>([]);
   const [loading, setLoading] = useState(false);
   const [showForm, setShowForm] = useState(false);
+  const [showHistory, setShowHistory] = useState(false);
+  const [selectedDevice, setSelectedDevice] = useState<Device | null>(null);
   const [editingDevice, setEditingDevice] = useState<Device | null>(null);
   const [customers, setCustomers] = useState<any[]>([]);
   const [technicians, setTechnicians] = useState<any[]>([]);
 
-  const columns: ColumnsType<Device> = [
+  const columns: DataTableColumn[] = [
     {
+      key: 'serialNumber',
       title: 'Serial Number',
       dataIndex: 'serialNumber',
-      key: 'serialNumber',
+      excelFilter: true,
+      sorter: (a, b) => (a.serialNumber || '').localeCompare(b.serialNumber || ''),
     },
     {
+      key: 'brand',
       title: 'Brand',
       dataIndex: 'brand',
-      key: 'brand',
+      excelFilter: true,
+      sorter: (a, b) => (a.brand || '').localeCompare(b.brand || ''),
     },
     {
+      key: 'model',
       title: 'Model',
       dataIndex: 'model',
-      key: 'model',
+      excelFilter: true,
+      sorter: (a, b) => (a.model || '').localeCompare(b.model || ''),
     },
     {
+      key: 'customerId',
       title: 'Customer',
       dataIndex: 'customerId',
-      key: 'customer',
-      render: (id) => customers.find(c => c.id === id)?.name || id,
+      excelFilter: true,
+      render: (id) => customers.find((c) => c.id === id)?.name || id,
+      sorter: (a, b) =>
+        (customers.find((c) => c.id === a.customerId)?.name || '').localeCompare(
+          customers.find((c) => c.id === b.customerId)?.name || ''
+        ),
     },
     {
+      key: 'problem',
       title: 'Problem',
       dataIndex: 'problem',
-      key: 'problem',
+      excelFilter: true,
       render: (problem) => problem || 'N/A',
+      sorter: (a, b) => (a.problem || '').localeCompare(b.problem || ''),
     },
     {
-      title: 'Action',
       key: 'action',
+      title: 'Action',
+      dataIndex: 'action',
       render: (_, record) => (
         <Space size="middle">
           <Button onClick={() => handleEdit(record)}>Edit</Button>
           <Button
-  danger
-  onClick={() => {
-    if (record.id) {
-      handleDelete(record.id);
-    } else {
-      message.error('Invalid device ID');
-    }
-  }}
->
-  Delete
-</Button>
-
+            icon={<HistoryOutlined />}
+            onClick={() => handleViewHistory(record)}
+            title="View Repair History"
+          >
+            History
+          </Button>
+          <Button
+            danger
+            onClick={() => {
+              if (record.id) {
+                handleDelete(record.id);
+              } else {
+                message.error('Invalid device ID');
+              }
+            }}
+          >
+            Delete
+          </Button>
         </Space>
       ),
     },
@@ -109,6 +132,11 @@ export default function DeviceList() {
     setShowForm(true);
   };
 
+  const handleViewHistory = (device: Device) => {
+    setSelectedDevice(device);
+    setShowHistory(true);
+  };
+
   const handleFormClose = () => {
     setShowForm(false);
     setEditingDevice(null);
@@ -121,22 +149,34 @@ export default function DeviceList() {
 
   return (
     <div>
-      <div className="flex justify-between items-center mb-4">
-        <h2 className="text-xl font-semibold">Device Management</h2>
-        <Button
-          type="primary"
-          icon={<PlusOutlined />}
-          onClick={() => setShowForm(true)}
-        >
-          Add Device
-        </Button>
-      </div>
 
-      <Table
+      <DataTable
         columns={columns}
-        dataSource={devices}
+        data={devices}
         loading={loading}
         rowKey="id"
+        searchable={true}
+        showSearch={true}
+        onSearch={(searchText) => {
+          console.log('Searching devices for:', searchText);
+        }}
+        actions={
+          <>
+          <Button onClick={fetchData} loading={loading}>
+      Refresh
+    </Button>
+          <Button
+            type="primary"
+            icon={<PlusOutlined />}
+            onClick={() => setShowForm(true)}
+          >
+            Add Device
+          </Button>
+          </>
+          
+          
+        }
+        pagination={{ pageSize: 10, showSizeChanger: true }}
       />
 
       <DeviceForm
@@ -145,7 +185,12 @@ export default function DeviceList() {
         onSubmit={handleFormSubmit}
         initialValues={editingDevice}
         customers={customers}
-        technicians={technicians}
+      />
+
+      <DeviceHistoryModal
+        visible={showHistory}
+        onClose={() => setShowHistory(false)}
+        deviceId={selectedDevice?.id || ''}
       />
     </div>
   );

@@ -1,9 +1,9 @@
 import { useState, useEffect } from 'react';
-import { Table, Button, Space, message } from 'antd';
-import type { ColumnsType } from 'antd/es/table';
+import { Button, Space, message } from 'antd';
 import { PlusOutlined } from '@ant-design/icons';
 import { Supplier } from './supplier.types';
 import SupplierForm from './SupplierForm';
+import DataTable, { DataTableColumn } from '@/components/ui/DataTable';
 
 export default function SupplierList() {
   const [suppliers, setSuppliers] = useState<Supplier[]>([]);
@@ -11,46 +11,54 @@ export default function SupplierList() {
   const [showForm, setShowForm] = useState(false);
   const [editingSupplier, setEditingSupplier] = useState<Supplier | null>(null);
 
-  const columns: ColumnsType<Supplier> = [
+  const columns: DataTableColumn[] = [
     {
+      key: 'name',
       title: 'Name',
       dataIndex: 'name',
-      key: 'name',
+      excelFilter: true,
+      sorter: (a, b) => (a.name || '').localeCompare(b.name || ''),
     },
     {
+      key: 'email',
       title: 'Email',
       dataIndex: 'email',
-      key: 'email',
+      excelFilter: true,
+      sorter: (a, b) => (a.email || '').localeCompare(b.email || ''),
     },
     {
+      key: 'phone',
       title: 'Phone',
       dataIndex: 'phone',
-      key: 'phone',
+      excelFilter: true,
+      sorter: (a, b) => (a.phone || '').localeCompare(b.phone || ''),
     },
     {
+      key: 'address',
       title: 'Address',
       dataIndex: 'address',
-      key: 'address',
+      excelFilter: true,
+      sorter: (a, b) => (a.address || '').localeCompare(b.address || ''),
     },
     {
-      title: 'Action',
       key: 'action',
+      title: 'Action',
+      dataIndex: 'action',
       render: (_, record) => (
         <Space size="middle">
           <Button onClick={() => handleEdit(record)}>Edit</Button>
           <Button
-  danger
-  onClick={() => {
-    if (record.id) {
-      handleDelete(record.id);
-    } else {
-      message.error('Invalid supplier ID');
-    }
-  }}
->
-  Delete
-</Button>
-
+            danger
+            onClick={() => {
+              if (record.id) {
+                handleDelete(record.id);
+              } else {
+                message.error('Invalid supplier ID');
+              }
+            }}
+          >
+            Delete
+          </Button>
         </Space>
       ),
     },
@@ -106,22 +114,31 @@ export default function SupplierList() {
 
   return (
     <div>
-      <div className="flex justify-between items-center mb-4">
-        <h2 className="text-xl font-semibold">Supplier Management</h2>
-        <Button
-          type="primary"
-          icon={<PlusOutlined />}
-          onClick={() => setShowForm(true)}
-        >
-          Add Supplier
-        </Button>
-      </div>
-
-      <Table
+      <DataTable
         columns={columns}
-        dataSource={suppliers}
+        data={suppliers}
         loading={loading}
         rowKey="id"
+        searchable={true}
+        showSearch={true}
+        onSearch={(searchText) => {
+          console.log('Searching suppliers for:', searchText);
+        }}
+        actions={
+          <>
+            <Button onClick={fetchSuppliers} loading={loading}>
+              Refresh
+            </Button>
+            <Button
+              type="primary"
+              icon={<PlusOutlined />}
+              onClick={() => setShowForm(true)}
+            >
+              Add Supplier
+            </Button>
+          </>
+        }
+        pagination={{ pageSize: 10, showSizeChanger: true }}
       />
 
       <SupplierForm

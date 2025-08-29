@@ -40,19 +40,20 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
 
 const items: MenuItem[] = [
   { key: 'dashboard', icon: <DesktopOutlined />, label: 'Dashboard' },
-  { key: 'customers', icon: <UserOutlined />, label: 'Customers' },
-  { key: 'technicians', icon: <ToolOutlined />, label: 'Technicians' },
-  { key: 'suppliers', icon: <UserOutlined />, label: 'Suppliers' },
-  { key: 'inventory', icon: <ShoppingCartOutlined />, label: 'Inventory' },
   { 
     key: 'repairs', 
     icon: <ToolOutlined />, 
     label: 'Repairs',
     children: [
+      { key: 'customers', label: 'Customers' }, // Moved here
       { key: 'tickets', label: 'Tickets' },
       { key: 'devices', label: 'Devices' },
     ]
   },
+  { key: 'technicians', icon: <ToolOutlined />, label: 'Technicians' },
+  { key: 'receivers', icon: <UserOutlined />, label: 'Receivers' }, // New menu
+  { key: 'suppliers', icon: <UserOutlined />, label: 'Suppliers' },
+  { key: 'inventory', icon: <ShoppingCartOutlined />, label: 'Inventory' },
   { key: 'billing', icon: <FileTextOutlined />, label: 'Billing' },
   { key: 'reports', icon: <BarChartOutlined />, label: 'Reports' },
 ];

@@ -1,9 +1,9 @@
 import { useState, useEffect } from 'react';
-import { Table, Button, Space, message } from 'antd';
-import type { ColumnsType } from 'antd/es/table';
+import { Button, Space, message, Tag } from 'antd';
 import { PlusOutlined } from '@ant-design/icons';
 import { Customer } from './customer.types';
 import CustomerForm from './CustomerForm';
+import DataTable, { DataTableColumn } from '@/components/ui/DataTable';
 
 export default function CustomerList() {
   const [customers, setCustomers] = useState<Customer[]>([]);
@@ -11,46 +11,58 @@ export default function CustomerList() {
   const [showForm, setShowForm] = useState(false);
   const [editingCustomer, setEditingCustomer] = useState<Customer | null>(null);
 
-  const columns: ColumnsType<Customer> = [
+  const columns: DataTableColumn[] = [
     {
+      key: 'name',
       title: 'Name',
       dataIndex: 'name',
-      key: 'name',
+      excelFilter: true,
+      filterMultiple: true,
+      sorter: (a, b) => (a.name || '').localeCompare(b.name || ''),
     },
     {
+      key: 'email',
       title: 'Email',
       dataIndex: 'email',
-      key: 'email',
+      excelFilter: true,
+      filterMultiple: true,
+      sorter: (a, b) => (a.email || '').localeCompare(b.email || ''),
     },
     {
+      key: 'phone',
       title: 'Phone',
       dataIndex: 'phone',
-      key: 'phone',
+      excelFilter: true,
+      filterMultiple: true,
+      sorter: (a, b) => (a.phone || '').localeCompare(b.phone || ''),
     },
     {
+      key: 'address',
       title: 'Address',
       dataIndex: 'address',
-      key: 'address',
+      excelFilter: true,
+      filterMultiple: true,
+      sorter: (a, b) => (a.address || '').localeCompare(b.address || ''),
     },
     {
-      title: 'Action',
       key: 'action',
+      title: 'Action',
+      dataIndex: 'action',
       render: (_, record) => (
         <Space size="middle">
           <Button onClick={() => handleEdit(record)}>Edit</Button>
           <Button
-  danger
-  onClick={() => {
-    if (record.id) {
-      handleDelete(record.id);
-    } else {
-      message.error('Invalid customer ID');
-    }
-  }}
->
-  Delete
-</Button>
-
+            danger
+            onClick={() => {
+              if (record.id) {
+                handleDelete(record.id);
+              } else {
+                message.error('Invalid customer ID');
+              }
+            }}
+          >
+            Delete
+          </Button>
         </Space>
       ),
     },
@@ -106,22 +118,33 @@ export default function CustomerList() {
 
   return (
     <div>
-      <div className="flex justify-between items-center mb-4">
-        <h2 className="text-xl font-semibold">Customer Management</h2>
-        <Button
-          type="primary"
-          icon={<PlusOutlined />}
-          onClick={() => setShowForm(true)}
-        >
-          Add Customer
-        </Button>
-      </div>
 
-      <Table
+      <DataTable
         columns={columns}
-        dataSource={customers}
+        data={customers}
         loading={loading}
         rowKey="id"
+        searchable={true}
+        showSearch={true}
+        onSearch={(searchText) => {
+          // You can implement custom search logic here if needed
+          console.log('Searching for:', searchText);
+        }}
+        actions={
+          <>
+          <Button onClick={fetchCustomers} loading={loading}>
+      Refresh
+    </Button>
+          <Button
+            type="primary"
+            icon={<PlusOutlined />}
+            onClick={() => setShowForm(true)}
+          >
+            Add Customer
+          </Button>
+          </>
+        }
+        pagination={{ pageSize: 10, showSizeChanger: true }}
       />
 
       <CustomerForm
