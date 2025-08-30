@@ -14,6 +14,7 @@ import {
   BellOutlined,
 } from '@ant-design/icons';
 import { getAuthToken, removeAuthToken } from '../lib/auth';
+import NotificationDropdown from '@/components/common/NotificationDropdown';
 
 const { Sider, Content } = Layout;
 
@@ -135,12 +136,7 @@ const currentTitle = useMemo(() => {
 
           {/* Right side: notifications + user */}
 <div className="flex items-center space-x-6 pr-4">
-  <Badge count={5} offset={[-2, 6]}>
-    <BellOutlined
-      className="text-2xl cursor-pointer text-gray-600 hover:text-gray-900 transition-colors duration-200"
-      aria-label="Notifications"
-    />
-  </Badge>
+  <NotificationDropdown />
   <Dropdown overlay={userMenu} placement="bottomRight" trigger={['click']}>
     <div className="flex items-center cursor-pointer space-x-3 hover:bg-gray-100 rounded-md px-2 py-1 transition-colors duration-200">
       <Avatar size="small" icon={<UserOutlined />} />
